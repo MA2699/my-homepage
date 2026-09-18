@@ -45,3 +45,51 @@
     }
   });
 })();
+
+// 导航当前所在区块高亮（scroll spy）
+(function () {
+  'use strict';
+
+  var navLinks = Array.prototype.slice.call(
+    document.querySelectorAll('.nav-links a[href^="#"]')
+  );
+  if (!navLinks.length || typeof IntersectionObserver === 'undefined') {
+    return;
+  }
+
+  var pairs = navLinks
+    .map(function (link) {
+      var id = link.getAttribute('href').slice(1);
+      return { link: link, section: document.getElementById(id) };
+    })
+    .filter(function (p) {
+      return p.section;
+    });
+
+  function setActive(target) {
+    navLinks.forEach(function (l) {
+      l.classList.toggle('is-active', l === target);
+    });
+  }
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (!entry.isIntersecting) {
+        return;
+      }
+      var pair = pairs.filter(function (p) {
+        return p.section === entry.target;
+      })[0];
+      if (pair) {
+        setActive(pair.link);
+      }
+    });
+  }, {
+    rootMargin: '-45% 0px -50% 0px',
+    threshold: 0
+  });
+
+  pairs.forEach(function (p) {
+    observer.observe(p.section);
+  });
+})();

@@ -99,6 +99,12 @@ a:hover {
   color: var(--c-primary);
 }
 
+.nav-links a.is-active {
+  color: var(--c-primary);
+  background: var(--c-bg-alt);
+  font-weight: 600;
+}
+
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -256,6 +262,12 @@ a:hover {
   border-radius: var(--radius);   /* 统一圆角 12px */
   padding: 28px;                  /* 统一间距 */
   box-shadow: var(--shadow-sm);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.edu-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
 }
 
 .edu-head {
@@ -366,15 +378,6 @@ a:hover {
   color: var(--c-text);
 }
 
-/* 模拟标签云字号差异 */
-.skill-tag:nth-child(odd) {
-  font-size: 1.05rem;
-}
-
-.skill-tag:nth-child(3n) {
-  font-size: 0.9rem;
-}
-
 /* ===== ⑥ 联系方式 + 页脚 ===== */
 .contact {
   text-align: center;
@@ -391,6 +394,12 @@ a:hover {
   color: var(--c-muted);
   font-size: 0.9rem;
   border-top: 1px solid var(--c-border);
+}
+
+.footer-ai {
+  margin-top: 6px;
+  font-size: 0.8rem;
+  opacity: 0.85;
 }
 
 /* ===== 响应式：移动端 ===== */
