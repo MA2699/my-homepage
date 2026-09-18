@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>mingwei · 个人主页</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- ① 顶部导航 -->
+  <header class="navbar">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-brand">mingwei</a>
+      <button class="nav-toggle" aria-label="切换菜单" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav-links" aria-label="主导航">
+        <a href="#hero">首页</a>
+        <a href="#education">教育背景</a>
+        <a href="#projects">项目经历</a>
+        <a href="#skills">技能</a>
+        <a href="#contact">联系方式</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ② 首屏 -->
+  <section id="hero" class="hero">
+    <div class="hero-inner">
+      <div class="avatar" aria-hidden="true">M</div>
+      <h1 class="hero-name">mingwei</h1>
+      <p class="hero-tagline">准前端开发工程师 · 2027届 · 通过AI辅助完成多个网页小项目</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">查看项目</a>
+        <a href="#contact" class="btn btn-ghost">联系我</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ③ 教育背景 -->
+  <section id="education" class="section">
+    <div class="container">
+      <h2 class="section-title">教育背景</h2>
+      <div class="edu-card">
+        <div class="edu-head">
+          <h3>金陵科技学院</h3>
+          <span class="edu-time">2023.09 — 2027.06</span>
+        </div>
+        <p class="edu-major">计算机科学与技术 · 本科</p>
+        <p class="edu-desc">本科在读，专业水平中等，课余通过 AI 辅助完成多个前端小项目。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ④ 项目经历 -->
+  <section id="projects" class="section section-alt">
+    <div class="container">
+      <h2 class="section-title">项目经历</h2>
+      <div class="project-grid">
+        <article class="project-card">
+          <h3 class="project-title">简易记账网页</h3>
+          <p class="project-desc">独立开发收支录入与记录查看网页，借助 localStorage 实现数据本地保存，页面布局完整，可直接浏览器运行。</p>
+          <ul class="tag-list">
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JavaScript</li>
+            <li>localStorage</li>
+          </ul>
+        </article>
+        <article class="project-card">
+          <h3 class="project-title">猜数字游戏</h3>
+          <p class="project-desc">开发猜数字交互小游戏，提供提示与次数统计功能，完成完整交互逻辑，无控制台报错，能够正常游玩。</p>
+          <ul class="tag-list">
+            <li>JavaScript</li>
+          </ul>
+        </article>
+        <article class="project-card">
+          <h3 class="project-title">Git 版本控制实训</h3>
+          <p class="project-desc">学习使用 Git 进行版本控制，练习多次提交迭代项目，掌握 commit、push，能够把网页部署到 GitHub Pages。</p>
+          <ul class="tag-list">
+            <li>Git</li>
+            <li>GitHub</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑤ 技能 -->
+  <section id="skills" class="section">
+    <div class="container">
+      <h2 class="section-title">技能</h2>
+      <div class="skill-cloud">
+        <span class="skill-tag">HTML</span>
+        <span class="skill-tag">CSS</span>
+        <span class="skill-tag">JavaScript</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Git</span>
+        <span class="skill-tag">GitHub</span>
+        <span class="skill-tag">AI辅助开发</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑥ 联系方式 -->
+  <section id="contact" class="section section-alt">
+    <div class="container contact">
+      <h2 class="section-title">联系方式</h2>
+      <p class="contact-item">
+        邮箱：<a href="mailto:3376423028@qq.com">3376423028@qq.com</a>
+      </p>
+      <p class="contact-item">
+        GitHub：<a href="https://gitee.com/Z3376423028" target="_blank" rel="noopener noreferrer">gitee.com/Z3376423028</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <p>&copy; 2026 mingwei. 保留所有权利。</p>
+    <p class="footer-ai">本页由 AI 辅助开发 · 2026</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
