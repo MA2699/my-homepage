@@ -8,16 +8,18 @@
 }
 
 :root {
-  --c-primary: #2563eb;
+  --c-primary: #2563eb;          /* 唯一主色 */
   --c-primary-dark: #1d4ed8;
-  --c-text: #1f2937;
-  --c-muted: #6b7280;
-  --c-bg: #ffffff;
-  --c-bg-alt: #f3f4f6;
+  --c-text: #111827;             /* 近黑 */
+  --c-muted: #6b7280;            /* 中灰 */
+  --c-faint: #9ca3af;            /* 浅灰 */
+  --c-bg: #ffffff;               /* 白 */
+  --c-bg-alt: #f7f7f8;           /* 极浅灰（交替区块） */
+  --c-bg-soft: #f3f4f6;          /* 标签底灰 */
   --c-border: #e5e7eb;
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
-  --radius: 10px;
+  --shadow-sm: 0 1px 2px rgba(17, 24, 39, 0.05);
+  --shadow-md: 0 4px 14px rgba(17, 24, 39, 0.08);
+  --radius: 12px;                /* 统一卡片圆角 */
   --nav-h: 60px;
   --max-w: 960px;
 }
@@ -32,7 +34,7 @@ body {
     "Microsoft YaHei", sans-serif;
   color: var(--c-text);
   background: var(--c-bg);
-  line-height: 1.6;
+  line-height: 1.75;             /* 正文行距放松 */
 }
 
 a {
@@ -58,7 +60,7 @@ a:hover {
   top: 0;
   z-index: 100;
   height: var(--nav-h);
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: saturate(180%) blur(8px);
   border-bottom: 1px solid var(--c-border);
 }
@@ -75,7 +77,8 @@ a:hover {
 
 .nav-brand {
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.15rem;           /* 标题放大 */
+  letter-spacing: 0.01em;
   color: var(--c-text);
 }
 
@@ -135,7 +138,7 @@ a:hover {
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 100%);
+  background: var(--c-bg-alt);   /* 极简浅色，去除渐变 */
   padding: 48px 24px;
 }
 
@@ -143,33 +146,36 @@ a:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 16px;
+  gap: 18px;
 }
 
 .avatar {
   width: 140px;
   height: 140px;
   border-radius: 50%;
-  background: #c7d2fe;
-  color: #3730a3;
+  background: var(--c-bg-soft);  /* 中性灰，替代紫色 */
+  color: var(--c-text);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.95rem;
-  letter-spacing: 0.1em;
-  border: 4px solid #fff;
-  box-shadow: var(--shadow-md);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  border: 3px solid #fff;
+  box-shadow: var(--shadow-sm);
 }
 
 .hero-name {
-  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-size: clamp(2.4rem, 6vw, 3.8rem);  /* 标题放大 */
   font-weight: 800;
   letter-spacing: 0.02em;
+  color: var(--c-text);
 }
 
 .hero-tagline {
-  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
   color: var(--c-muted);
+  line-height: 1.6;
 }
 
 .hero-actions {
@@ -181,7 +187,7 @@ a:hover {
 
 .btn {
   display: inline-block;
-  padding: 10px 22px;
+  padding: 11px 24px;
   border-radius: 999px;
   font-size: 0.95rem;
   font-weight: 600;
@@ -215,7 +221,7 @@ a:hover {
 
 /* ===== 通用区块 ===== */
 .section {
-  padding: 72px 0;
+  padding: 80px 0;             /* 间距统一加大 */
 }
 
 .section-alt {
@@ -223,18 +229,20 @@ a:hover {
 }
 
 .section-title {
-  font-size: 1.75rem;
-  font-weight: 700;
-  margin-bottom: 32px;
+  font-size: 2rem;             /* 标题放大加粗 */
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  margin-bottom: 36px;
   text-align: center;
+  color: var(--c-text);
 }
 
 /* ===== ③ 教育背景 ===== */
 .edu-card {
   background: var(--c-bg);
   border: 1px solid var(--c-border);
-  border-radius: var(--radius);
-  padding: 24px;
+  border-radius: var(--radius);   /* 统一圆角 12px */
+  padding: 28px;                  /* 统一间距 */
   box-shadow: var(--shadow-sm);
 }
 
@@ -247,7 +255,8 @@ a:hover {
 }
 
 .edu-head h3 {
-  font-size: 1.2rem;
+  font-size: 1.3rem;            /* 标题放大加粗 */
+  font-weight: 700;
 }
 
 .edu-time {
@@ -257,8 +266,8 @@ a:hover {
 }
 
 .edu-major {
-  margin-top: 8px;
-  color: var(--c-primary);
+  margin-top: 10px;
+  color: var(--c-text);          /* 去主色，改近黑 */
   font-weight: 600;
 }
 
@@ -271,17 +280,18 @@ a:hover {
 .project-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 20px;
+  gap: 24px;                     /* 统一卡片间距 */
 }
 
 .project-card {
   background: var(--c-bg);
   border: 1px solid var(--c-border);
-  border-radius: var(--radius);
-  padding: 22px;
+  border-radius: var(--radius);   /* 统一圆角 12px */
+  padding: 28px;                  /* 与 edu-card 统一 */
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
+  box-shadow: var(--shadow-sm);
   transition: transform 0.18s ease, box-shadow 0.18s ease;
 }
 
@@ -291,12 +301,14 @@ a:hover {
 }
 
 .project-title {
-  font-size: 1.15rem;
+  font-size: 1.25rem;            /* 标题放大加粗 */
+  font-weight: 700;
 }
 
 .project-desc {
   color: var(--c-muted);
   font-size: 0.95rem;
+  line-height: 1.7;              /* 正文行距放松 */
   flex: 1;
 }
 
@@ -308,8 +320,8 @@ a:hover {
 }
 
 .tag-list li {
-  background: #eef2ff;
-  color: var(--c-primary-dark);
+  background: var(--c-bg-soft);  /* 中性灰，替代蓝色调 */
+  color: var(--c-text);
   font-size: 0.8rem;
   padding: 4px 10px;
   border-radius: 999px;
@@ -333,13 +345,13 @@ a:hover {
   border-radius: 999px;
   font-size: 0.95rem;
   box-shadow: var(--shadow-sm);
-  transition: transform 0.15s ease, border-color 0.15s ease;
+  transition: transform 0.15s ease, border-color 0.15s ease, color 0.15s ease;
 }
 
 .skill-tag:hover {
   transform: translateY(-2px);
-  border-color: var(--c-primary);
-  color: var(--c-primary);
+  border-color: var(--c-faint);   /* 灰色 hover，替代蓝色 */
+  color: var(--c-text);
 }
 
 /* 模拟标签云字号差异 */
@@ -357,13 +369,13 @@ a:hover {
 }
 
 .contact-item {
-  margin: 6px 0;
+  margin: 8px 0;
   font-size: 1.05rem;
 }
 
 .footer {
   text-align: center;
-  padding: 24px 16px;
+  padding: 28px 16px;
   color: var(--c-muted);
   font-size: 0.9rem;
   border-top: 1px solid var(--c-border);
@@ -400,11 +412,15 @@ a:hover {
   }
 
   .section {
-    padding: 56px 0;
+    padding: 60px 0;
   }
 
   .section-title {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     margin-bottom: 24px;
+  }
+
+  .hero-name {
+    font-size: clamp(2rem, 9vw, 2.8rem);
   }
 }
