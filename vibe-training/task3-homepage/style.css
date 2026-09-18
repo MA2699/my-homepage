@@ -35,6 +35,7 @@ body {
   color: var(--c-text);
   background: var(--c-bg);
   line-height: 1.75;             /* 正文行距放松 */
+  overflow-wrap: break-word;     /* 防止长串/URL 溢出屏幕 */
 }
 
 a {
@@ -441,7 +442,7 @@ a:hover {
     margin-bottom: 24px;
   }
 
-  /* 首屏移动端：纵向堆叠并居中 */
+  /* 首屏移动端：纵向堆叠、头像缩小、文字满宽防溢出 */
   .hero {
     text-align: center;
   }
@@ -449,12 +450,23 @@ a:hover {
   .hero-inner {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;        /* 文字元素占满宽度，自动换行 */
     gap: 18px;
+  }
+
+  .hero-name,
+  .hero-tagline {
+    max-width: 100%;             /* 双保险，防长串溢出 */
   }
 
   .hero-actions {
     justify-content: center;
+  }
+
+  .avatar {
+    align-self: center;          /* 头像居中 */
+    width: 96px;                 /* 缩小，不遮挡文字 */
+    height: 96px;
   }
 }
 
@@ -465,7 +477,7 @@ a:hover {
   }
 }
 
-@media (max-width: 560px) {
+@media (max-width: 640px) {
   .project-grid {
     grid-template-columns: 1fr;
   }
