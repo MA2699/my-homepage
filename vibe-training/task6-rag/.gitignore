@@ -1,0 +1,8 @@
+.env
+__pycache__/
+# 建库产物，可由 index.py 重建
+index*.json
+history.json
+history.jsonl
+summaries/
+小树对话-*.md
