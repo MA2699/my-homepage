@@ -1,11 +1,15 @@
 """RAG 知识库离线建库脚本：读取 docs/ → 切分 → 向量化 → 写入 index.json
 
-用法：python index.py
+用法：
+    python index.py                                        # 课内默认：400/60 → index.json
+    python index.py --size 200 --overlap 30 --out index_200_30.json   # 切分对比实验
+
 依赖：.env 中的 EMBEDDING_API_KEY / EMBEDDING_BASE_URL / EMBEDDING_MODEL
 只使用 requests + 标准库，不依赖向量数据库和 RAG 框架。
 """
 import json
 import os
+import sys
 import time
 
 import requests
@@ -95,11 +99,11 @@ def get_embeddings(texts, retries=1):
             time.sleep(1)
 
 
-def build_chunks(docs):
+def build_chunks(docs, size=CHUNK_SIZE, overlap=CHUNK_OVERLAP):
     """切分并编号，每块四个字段：text、vec、source、id"""
     chunks = []
     for name, text in docs:
-        for piece in chunk_text(text):
+        for piece in chunk_text(text, size, overlap):
             chunks.append({
                 "text": piece,
                 "vec": None,
@@ -109,9 +113,22 @@ def build_chunks(docs):
     return chunks
 
 
+def parse_args(argv):
+    """解析 --size / --overlap / --out，不传就用课内默认参数"""
+    opts = {"size": CHUNK_SIZE, "overlap": CHUNK_OVERLAP, "out": INDEX_FILE}
+    for flag in opts:
+        if f"--{flag}" in argv:
+            raw = argv[argv.index(f"--{flag}") + 1]
+            opts[flag] = int(raw) if flag != "out" else raw
+    return opts
+
+
 def main():
     load_dotenv()
     started = time.time()
+
+    opts = parse_args(sys.argv[1:])
+    size, overlap, out = opts["size"], opts["overlap"], opts["out"]
 
     docs = load_documents()
     if not docs:
@@ -119,7 +136,7 @@ def main():
         return
 
     total_chars = sum(len(text) for _, text in docs)
-    chunks = build_chunks(docs)
+    chunks = build_chunks(docs, size, overlap)
     total = len(chunks)
     print(f"读取 {len(docs)} 份文档、共 {total_chars} 字，切成 {total} 块，开始向量化…")
 
@@ -136,15 +153,16 @@ def main():
             print(f"  进度 {processed}/{total}")
 
     kept = [c for c in chunks if c["vec"] is not None]
-    with open(INDEX_FILE, "w", encoding="utf-8") as f:
+    with open(out, "w", encoding="utf-8") as f:
         json.dump(kept, f, ensure_ascii=False)
 
     dims = sorted({len(c["vec"]) for c in kept})
-    print(f"\n建库完成 → {INDEX_FILE}")
+    step = size - overlap          # 每块净推进字数，粗估块数用它
+    print(f"\n建库完成 → {out}   （参数 {size}/{overlap}）")
     print(f"  入库块数：{len(kept)}    跳过：{total - len(kept)}")
     print(f"  向量维度：{dims}")
     print(f"  总耗时：{time.time() - started:.1f} 秒")
-    print(f"  验收①：块数 ≈ 总字数/340 ≈ {total_chars / 340:.0f}，实际 {len(kept)}")
+    print(f"  验收①：块数 ≈ 总字数/{step} ≈ {total_chars / step:.0f}，实际 {len(kept)}")
 
 
 if __name__ == "__main__":

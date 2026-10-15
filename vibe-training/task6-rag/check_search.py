@@ -7,6 +7,7 @@
     python check_search.py index_200_30.json --set self   # 切分对比实验
 
 命中判定：答案关键词出现在检索结果的前 3 块里（Top3 命中）。
+出处判定：答案关键词所在的块就是排名第 1 的块（来源标注的第一顺位即正确答案）。
 关键词只是代理指标——块边界可能把答案切断，最终仍需人眼确认。
 """
 import json
@@ -71,7 +72,7 @@ def run_bank(name, questions, threshold, chunks):
     print(f"\n【{name}】共 {len(questions)} 题，验收线 Top3 命中 ≥{threshold}")
     print("-" * 78)
 
-    hits = 0
+    hits = exact = 0
     for (question, key), qv in zip(questions, qvecs):
         ranked = sorted(((cosine(qv, c["vec"]), c) for c in chunks),
                         key=lambda x: -x[0])
@@ -79,6 +80,7 @@ def run_bank(name, questions, threshold, chunks):
         rank = next((i + 1 for i, (_, c) in enumerate(top5) if key in c["text"]), 0)
         ok = 0 < rank <= 3
         hits += ok
+        exact += (rank == 1)
         where = f"Top{rank}" if rank else "未进Top5"
         print(f"{'命中' if ok else '未命中'}  {where:7s} 最高分{top5[0][0]:.3f}   {question}")
         if not ok:
@@ -87,8 +89,8 @@ def run_bank(name, questions, threshold, chunks):
 
     ok_all = hits >= threshold
     print("-" * 78)
-    print(f"Top3 命中 {hits}/{len(questions)}（验收线 {threshold}）  →  "
-          f"{'通过' if ok_all else '不通过'}")
+    print(f"Top3 命中 {hits}/{len(questions)}   出处正确(Top1) {exact}/{len(questions)}"
+          f"   （验收线命中 ≥{threshold}）  →  {'通过' if ok_all else '不通过'}")
     return ok_all
 
 
